@@ -1,11 +1,8 @@
 package stringsquest
 
 import (
-	"regexp"
 	"strings"
 )
-
-const alphanumericPattern = "^[A-z0-9]$"
 
 func getRotatedChar(c byte, rotationFactor uint8) byte {
 	// Time: O(1) lookup with lang's ASCII character internal hashtable
@@ -21,13 +18,20 @@ func getRotatedChar(c byte, rotationFactor uint8) byte {
 	return 0
 }
 
+func isValidAlphanumeric(c byte) bool {
+	if (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') {
+		return true
+	}
+	return false
+}
+
 func RotationalCipher(input string, rotationFactor int) string {
 	// Time: O(n)
 	// Space: O(n)
 	wordBuffer := strings.Builder{}
 	for i := 0; i < len(input); i++ {
 		c := input[i]
-		if ok, _ := regexp.Match(alphanumericPattern, []byte{c}); !ok {
+		if !isValidAlphanumeric(c) {
 			wordBuffer.WriteByte(c)
 			continue
 		}

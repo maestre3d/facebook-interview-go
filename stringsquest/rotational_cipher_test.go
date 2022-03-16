@@ -26,7 +26,14 @@ func TestRotationalCipher(t *testing.T) {
 	for _, tt := range rotationalCipherTests {
 		exp := stringsquest.RotationalCipher(tt.In, tt.InFactor)
 		if exp != tt.Exp {
-			t.Fail()
+			t.Fatalf("%s is not equal to expected value: %s", exp, tt.Exp)
 		}
+	}
+}
+
+func BenchmarkRotationalCipher(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		b.ReportAllocs()
+		_ = stringsquest.RotationalCipher("abcdefghijklmNOPQRSTUVWXYZ0123456789", 39)
 	}
 }
