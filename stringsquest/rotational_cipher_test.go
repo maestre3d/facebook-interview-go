@@ -3,6 +3,8 @@ package stringsquest_test
 import (
 	"facebook/stringsquest"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var rotationalCipherTests = []struct {
@@ -24,10 +26,9 @@ var rotationalCipherTests = []struct {
 
 func TestRotationalCipher(t *testing.T) {
 	for _, tt := range rotationalCipherTests {
+		r := require.New(t)
 		exp := stringsquest.RotationalCipher(tt.In, tt.InFactor)
-		if exp != tt.Exp {
-			t.Fatalf("%s is not equal to expected value: %s", exp, tt.Exp)
-		}
+		r.Equal(tt.Exp, exp)
 	}
 }
 
